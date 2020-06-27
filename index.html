@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>True Surplus</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+<link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<form id="msform">
+  <fieldset>
+    <h3>Max Allowed Limit</h3>
+    <input type="text" style="pointer-events: none;" name="max_allowed_limit" value="$ 100,000"/>
+    <h3>Repayment</h3>
+    <input type="text"  style="pointer-events: none;"  name="Repayment" value="$ 3,800" />
+    <h3>Surplus on System</h3>
+    <input type="number" id="sos" name="surplus_on_system" placeholder="Surplus On System" />
+    <h3>Approved Limit</h3>
+    <input type="number" id="al" name="approved_limit" placeholder="Approved Limit" />
+    <h3 id="ts1" style="display: none;">True Surplus</h3>
+    <input type="text" id="ts"  style="display: none;" name="true_surplus" placeholder="True Surplus Val"/>
+    <input style="display: none;" type="button" id="ts2" name="copy" class="next action-button" onclick="copy_it()" value="Copy"/>
+    <input type="button" name="next" class="next action-button" onclick="calc_true_surplus()" value="Calculate"/>
+  </fieldset>
+</form>
+</body>
+<script>
+
+async function copy_it(){
+  var copyText = document.getElementById("ts");
+  copyText.select();
+  copyText.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.getElementById("ts2").value="Copied";
+  await new Promise(r => setTimeout(r, 2000));
+  document.getElementById("ts2").style.display="none";
+}
+function calc_true_surplus(){
+  var x=100000;
+  var y=x*(3.8/100);
+  var a=document.getElementById("sos").value;
+  var z=document.getElementById("al").value;
+  var true_surplus=y-(z*(3.8/100)-a)
+  document.getElementById("ts").value=true_surplus;
+  document.getElementById("ts1").style.display="block";
+  document.getElementById("ts").style.display="block";
+  document.getElementById("ts2").style.display="block";
+}
+</script>
+</html>
